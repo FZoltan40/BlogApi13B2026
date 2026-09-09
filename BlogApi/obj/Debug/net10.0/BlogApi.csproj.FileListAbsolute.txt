@@ -33,3 +33,5 @@ C:\Users\zoli\Desktop\2026_2027\13BCsop1\Backend\BlogApi\BlogApi\obj\Debug\net10
 C:\Users\zoli\Desktop\2026_2027\13BCsop1\Backend\BlogApi\BlogApi\obj\Debug\net10.0\BlogApi.genruntimeconfig.cache
 C:\Users\zoli\Desktop\2026_2027\13BCsop1\Backend\BlogApi\BlogApi\obj\Debug\net10.0\ref\BlogApi.dll
 C:\Users\zoli\Desktop\2026_2027\13BCsop1\Backend\BlogApi\BlogApi\bin\Debug\net10.0\Scalar.AspNetCore.dll
+C:\Users\zoli\Desktop\2026_2027\13BCsop1\Backend\BlogApi\BlogApi\bin\Debug\net10.0\MySqlConnector.dll
+C:\Users\zoli\Desktop\2026_2027\13BCsop1\Backend\BlogApi\BlogApi\obj\Debug\net10.0\BlogApi.sourcelink.json
