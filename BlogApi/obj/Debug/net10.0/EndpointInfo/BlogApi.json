@@ -58,17 +58,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Blogger"
+                "$ref": "#/components/schemas/AddBloggerDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Blogger"
+                "$ref": "#/components/schemas/AddBloggerDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Blogger"
+                "$ref": "#/components/schemas/AddBloggerDto"
               }
             }
           },
@@ -76,7 +76,24 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Blogger"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Blogger"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Blogger"
+                }
+              }
+            }
           }
         }
       },
@@ -152,6 +169,37 @@
   },
   "components": {
     "schemas": {
+      "AddBloggerDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "email": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "age": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "password": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
       "Blogger": {
         "type": "object",
         "properties": {

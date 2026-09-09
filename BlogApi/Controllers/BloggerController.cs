@@ -1,4 +1,5 @@
 ﻿using BlogApi.Models;
+using BlogApi.Models.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -47,9 +48,36 @@ namespace BlogApi.Controllers
         }
 
         [HttpPost]
-        public object AddNewBlogger(Blogger blogger)
+        public Blogger AddNewBlogger(AddBloggerDto blogger)
         {
-            return null;
+            var connector = new MySqlConnection(ConnectionString);
+
+            connector.Open();
+
+            var blg = new Blogger
+            {
+                Name = blogger.Name,
+                Email = blogger.Email,
+                Age = blogger.Age,
+                Password = blogger.Password,
+                RegistrationTime = DateTime.Now
+            };
+
+            var sql = $"INSERT INTO `blogger`(`name`, `email`, `age`, `password`, `RegistrationTime`) VALUES (@name,@email,@age,@password,@registrationtime)";
+
+            var cmd = new MySqlCommand(sql, connector);
+
+            cmd.Parameters.AddWithValue("@name", blg.Name);
+            cmd.Parameters.AddWithValue("@email", blg.Email);
+            cmd.Parameters.AddWithValue("@age", blg.Age);
+            cmd.Parameters.AddWithValue("@password", blg.Password);
+            cmd.Parameters.AddWithValue("@registrationtime", blg.RegistrationTime);
+
+            cmd.ExecuteNonQuery();
+
+            connector.Close();
+
+            return blg;
         }
 
         [HttpPut]
