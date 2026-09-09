@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[10.0.11, )"
             },
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[2.6.2, )"
+            },
             "Scalar.AspNetCore": {
               "target": "Package",
               "version": "[2.17.3, )"
