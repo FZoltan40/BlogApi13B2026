@@ -160,6 +160,43 @@ namespace BlogApi.Controllers
 
             return blogger;
         }
+
+        [HttpGet("bloggerOwnPost")]
+        public List<object> GetBloggerWithPost(int id)
+        {
+            List<object> ownPost = new List<object>();
+            var connector = new MySqlConnection(ConnectionString);
+
+            connector.Open();
+
+            var sql = @"SELECT blogger.name, blogpost.title, blogpost.content  
+                        FROM `blogger` 
+                        INNER JOIN blogpost ON blogger.id = blogpost.blogId
+                        WHERE blogger.`id` = @id;";
+
+            var cmd = new MySqlCommand(sql, connector);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            var datareader = cmd.ExecuteReader();
+
+            while (datareader.Read())
+            {
+                var bloggerOwnPosts = new
+                {
+                    Name = datareader.GetString(0),
+                    Title = datareader.GetString(1),
+                    Content = datareader.GetString(2)
+                };
+
+                ownPost.Add(bloggerOwnPosts);
+            }
+
+           
+
+            connector.Close();
+
+            return ownPost;
+        }
     }
 }
 
