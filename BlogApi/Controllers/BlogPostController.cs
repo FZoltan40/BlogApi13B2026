@@ -81,36 +81,34 @@ namespace BlogApi.Controllers
         }
 
         [HttpPut]
-        public object UpdateBlogger([FromQuery] int id, [FromBody] UpdateBloggerDto updateBloggerDto)
+        public object UpdatePost([FromQuery] int id, [FromBody] UpdatePostDto updatePostDto)
         {
             var connector = new MySqlConnection(ConnectionString);
 
             connector.Open();
 
-            string sql = @"UPDATE `blogger` SET `name`=@name,`email`=@email,`age`=@age,`password`=@password 
+            string sql = @"UPDATE `blogpost` SET `title`=@title,`content`=@content,`updateTim`=@updateTime,`blogId`=@blogId
                 WHERE `id`= @id;";
 
             var cmd = new MySqlCommand(sql, connector);
 
-            cmd.Parameters.AddWithValue("@name", updateBloggerDto.Name);
-            cmd.Parameters.AddWithValue("@email", updateBloggerDto.Email);
-            cmd.Parameters.AddWithValue("@age", updateBloggerDto.Age);
-            cmd.Parameters.AddWithValue("@password", updateBloggerDto.Password);
+            cmd.Parameters.AddWithValue("@title", updatePostDto.Title);
+            cmd.Parameters.AddWithValue("@content", updatePostDto.Content);
+            cmd.Parameters.AddWithValue("@updateTime", DateTime.Now);
+            cmd.Parameters.AddWithValue("@blogId", id);
             cmd.Parameters.AddWithValue("@id", id);
 
             cmd.ExecuteNonQuery();
 
-            var updatedBlogger = new UpdateBloggerDto
+            var updatedPost = new UpdatePostDto
             {
-                Name = updateBloggerDto.Name,
-                Email = updateBloggerDto.Email,
-                Age = updateBloggerDto.Age,
-                Password = updateBloggerDto.Password
+               Title = updatePostDto.Title,
+               Content = updatePostDto.Content
             };
 
             connector.Close();
 
-            return new { message = "Sikeres frissítés.", result = updatedBlogger };
+            return new { message = "Sikeres frissítés.", result = updatePostDto };
         }
 
         [HttpDelete]

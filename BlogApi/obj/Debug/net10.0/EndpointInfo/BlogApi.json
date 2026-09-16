@@ -272,17 +272,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateBloggerDto"
+                "$ref": "#/components/schemas/UpdatePostDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateBloggerDto"
+                "$ref": "#/components/schemas/UpdatePostDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateBloggerDto"
+                "$ref": "#/components/schemas/UpdatePostDto"
               }
             }
           },
@@ -478,6 +478,17 @@
               "null",
               "string"
             ]
+          }
+        }
+      },
+      "UpdatePostDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
           }
         }
       }

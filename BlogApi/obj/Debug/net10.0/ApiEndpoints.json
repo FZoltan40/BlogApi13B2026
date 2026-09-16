@@ -130,7 +130,7 @@
   },
   {
     "ContainingType": "BlogApi.Controllers.BlogPostController",
-    "Method": "UpdateBlogger",
+    "Method": "UpdatePost",
     "RelativePath": "post",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -142,8 +142,8 @@
         "IsRequired": false
       },
       {
-        "Name": "updateBloggerDto",
-        "Type": "BlogApi.Models.DTOs.UpdateBloggerDto",
+        "Name": "updatePostDto",
+        "Type": "BlogApi.Models.DTOs.UpdatePostDto",
         "IsRequired": true
       }
     ],
