@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySqlConnector;
+using System.Data;
 
 namespace BlogApi.Controllers
 {
@@ -13,7 +14,7 @@ namespace BlogApi.Controllers
     public class BloggerController : ControllerBase
     {
         private readonly string ConnectionString = "server=localhost;database=blog13b;uid=root;password=";
-        
+
         [HttpGet]
         public List<Blogger> GetAllBlogger()
         {
@@ -43,7 +44,7 @@ namespace BlogApi.Controllers
 
                 bloggers.Add(blogger);
             }
-           
+
             connector.Close();
             return bloggers;
         }
@@ -82,11 +83,11 @@ namespace BlogApi.Controllers
         }
 
         [HttpPut]
-        public object UpdateBlogger([FromQuery]int id, [FromBody]UpdateBloggerDto updateBloggerDto)
+        public object UpdateBlogger([FromQuery] int id, [FromBody] UpdateBloggerDto updateBloggerDto)
         {
             var connector = new MySqlConnection(ConnectionString);
 
-            connector.Open() ;
+            connector.Open();
 
             string sql = @"UPDATE `blogger` SET `name`=@name,`email`=@email,`age`=@age,`password`=@password 
                 WHERE `id`= @id;";
@@ -111,11 +112,11 @@ namespace BlogApi.Controllers
 
             connector.Close();
 
-            return new { message = "Sikeres frissítés.", result = updatedBlogger};
+            return new { message = "Sikeres frissítés.", result = updatedBlogger };
         }
 
         [HttpDelete]
-        public object DeleteBlogger(int id) 
+        public object DeleteBlogger(int id)
         {
             var connector = new MySqlConnection(ConnectionString);
 
@@ -123,7 +124,7 @@ namespace BlogApi.Controllers
 
             var sql = $"DELETE FROM blogger WHERE id = @id";
 
-            var cmd = new MySqlCommand(sql,connector);
+            var cmd = new MySqlCommand(sql, connector);
 
             cmd.Parameters.AddWithValue(@"id", id);
 
@@ -131,7 +132,34 @@ namespace BlogApi.Controllers
 
             connector.Close();
 
-            return new { message = "Sikeres tölrés"};
+            return new { message = "Sikeres tölrés" };
+        }
+
+        [HttpGet("byId")]
+        public object GetBloggerById(int id)
+        {
+            var connector = new MySqlConnection(ConnectionString);
+
+            connector.Open();
+
+            var sql = @"SELECT `name`, `email` FROM `blogger`
+                        WHERE `id` = @id;";
+
+            var cmd = new MySqlCommand(sql, connector);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            var datareader = cmd.ExecuteReader();
+            datareader.Read();
+            var blogger = new 
+            {
+                Name = datareader.GetString(0),
+                Email = datareader.GetString(1)
+            };
+
+            connector.Close();
+
+            return blogger;
         }
     }
 }
+
