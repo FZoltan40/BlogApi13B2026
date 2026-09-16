@@ -3,6 +3,7 @@ using BlogApi.Models.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySqlConnector;
 
 namespace BlogApi.Controllers
@@ -81,9 +82,36 @@ namespace BlogApi.Controllers
         }
 
         [HttpPut]
-        public object UpdateBlogger(int id, Blogger blogger)
+        public object UpdateBlogger([FromQuery]int id, [FromBody]UpdateBloggerDto updateBloggerDto)
         {
-            return null;
+            var connector = new MySqlConnection(ConnectionString);
+
+            connector.Open() ;
+
+            string sql = @"UPDATE `blogger` SET `name`=@name,`email`=@email,`age`=@age,`password`=@password 
+                WHERE `id`= @id;";
+
+            var cmd = new MySqlCommand(sql, connector);
+
+            cmd.Parameters.AddWithValue("@name", updateBloggerDto.Name);
+            cmd.Parameters.AddWithValue("@email", updateBloggerDto.Email);
+            cmd.Parameters.AddWithValue("@age", updateBloggerDto.Age);
+            cmd.Parameters.AddWithValue("@password", updateBloggerDto.Password);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+
+            var updatedBlogger = new UpdateBloggerDto
+            {
+                Name = updateBloggerDto.Name,
+                Email = updateBloggerDto.Email,
+                Age = updateBloggerDto.Age,
+                Password = updateBloggerDto.Password
+            };
+
+            connector.Close();
+
+            return new { message = "Sikeres frissítés.", result = updatedBlogger};
         }
 
         [HttpDelete]

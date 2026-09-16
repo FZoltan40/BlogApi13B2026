@@ -59,8 +59,8 @@
         "IsRequired": false
       },
       {
-        "Name": "blogger",
-        "Type": "BlogApi.Models.Blogger",
+        "Name": "updateBloggerDto",
+        "Type": "BlogApi.Models.DTOs.UpdateBloggerDto",
         "IsRequired": true
       }
     ],
