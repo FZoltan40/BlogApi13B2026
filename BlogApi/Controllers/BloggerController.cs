@@ -191,11 +191,27 @@ namespace BlogApi.Controllers
                 ownPost.Add(bloggerOwnPosts);
             }
 
-           
-
             connector.Close();
 
             return ownPost;
+        }
+
+        [HttpGet("NumberOfPosts")]
+        public object GetNumerOfPosts()
+        {
+            var connector = new MySqlConnection(ConnectionString);
+
+            connector.Open();
+
+            var sql = @"SELECT COUNT(*) FROM blogpost";
+
+            var cmd = new MySqlCommand(sql,connector);
+
+            var db = cmd.ExecuteScalar();
+
+            connector.Close();
+
+            return new { message = $"Posztok száma : {db}" };
         }
     }
 }

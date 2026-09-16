@@ -125,6 +125,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "BlogApi.Controllers.BloggerController",
+    "Method": "GetNumerOfPosts",
+    "RelativePath": "blogger/NumberOfPosts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BlogApi.Controllers.BlogPostController",
     "Method": "GetAllPost",
     "RelativePath": "post",

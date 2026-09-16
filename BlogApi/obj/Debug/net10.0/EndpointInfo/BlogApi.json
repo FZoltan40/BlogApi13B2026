@@ -235,6 +235,18 @@
         }
       }
     },
+    "/blogger/NumberOfPosts": {
+      "get": {
+        "tags": [
+          "Blogger"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/post": {
       "get": {
         "tags": [
