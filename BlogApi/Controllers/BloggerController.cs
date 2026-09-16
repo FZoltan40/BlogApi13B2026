@@ -213,6 +213,41 @@ namespace BlogApi.Controllers
 
             return new { message = $"Posztok száma : {db}" };
         }
+
+        [HttpGet("BloggerPostsNumber")]
+        public object BloggerPostsNumber(int id)
+        {
+            var connector = new MySqlConnection(ConnectionString);
+
+            connector.Open();
+
+            var sql = @"SELECT blogger.name, COUNT(*) 
+                        FROM `blogger` 
+                        INNER JOIN blogpost ON blogger.id = blogpost.blogId
+                        GROUP BY blogger.id
+                        HAVING `id` = @id;";
+
+            var cmd = new MySqlCommand(sql, connector);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            var datareader = cmd.ExecuteReader();
+
+            if (datareader.Read())
+            {
+                var bloggerPostsNumber = new
+                {
+                    Name = datareader.GetString(0),
+                    NumberOfPosts = datareader.GetInt32(1)
+                };
+                return bloggerPostsNumber;
+            }
+
+          
+            connector.Close();
+
+            return null;
+            
+        }
     }
 }
 
