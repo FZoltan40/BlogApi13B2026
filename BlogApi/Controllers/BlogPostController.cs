@@ -114,13 +114,13 @@ namespace BlogApi.Controllers
         }
 
         [HttpDelete]
-        public object DeleteBlogger(int id)
+        public object DeletePost(int id)
         {
             var connector = new MySqlConnection(ConnectionString);
 
             connector.Open();
 
-            var sql = $"DELETE FROM blogger WHERE id = @id";
+            var sql = $"DELETE FROM blogpost WHERE id = @id";
 
             var cmd = new MySqlCommand(sql, connector);
 
