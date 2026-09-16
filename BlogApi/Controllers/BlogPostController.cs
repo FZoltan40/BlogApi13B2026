@@ -87,7 +87,7 @@ namespace BlogApi.Controllers
 
             connector.Open();
 
-            string sql = @"UPDATE `blogpost` SET `title`=@title,`content`=@content,`updateTim`=@updateTime,`blogId`=@blogId
+            string sql = @"UPDATE `blogpost` SET `title`=@title,`content`=@content,`updateTim`=@updateTime
                 WHERE `id`= @id;";
 
             var cmd = new MySqlCommand(sql, connector);
@@ -95,7 +95,6 @@ namespace BlogApi.Controllers
             cmd.Parameters.AddWithValue("@title", updatePostDto.Title);
             cmd.Parameters.AddWithValue("@content", updatePostDto.Content);
             cmd.Parameters.AddWithValue("@updateTime", DateTime.Now);
-            cmd.Parameters.AddWithValue("@blogId", id);
             cmd.Parameters.AddWithValue("@id", id);
 
             cmd.ExecuteNonQuery();
